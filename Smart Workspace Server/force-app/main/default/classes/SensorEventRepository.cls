@@ -1,9 +1,6 @@
 public with sharing class SensorEventRepository {
-    public SensorEventRepository() {
-
-    }
     
-    public Sensor_Event__c buildSensorEvent(String sensorId, Integer x, Integer y, Integer z) {
+    public Sensor_Event__c buildSensorEvent(Id sensorId, Integer x, Integer y, Integer z) {
         Sensor_Event__c event = new Sensor_Event__c();
         event.x__c = x;
         event.y__c = y;
@@ -12,7 +9,7 @@ public with sharing class SensorEventRepository {
         return event;
     }
 
-    public List<Sensor_Event__c> createSensorEvents(String sensorId, Integer[] line) {
+    public List<Sensor_Event__c> createSensorEvents(Id sensorId, Integer[] line) {
         Integer amount = solveCorrectAmount(line);
         List<Sensor_Event__c> events = new List<Sensor_Event__c>();
         for(Integer i = 0; i <= amount; i=i+3) {

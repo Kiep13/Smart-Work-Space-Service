@@ -1,11 +1,13 @@
 @IsTest
-public with sharing class SensorSoapServiceTest {
-    
+public with sharing class SensorRestServiceTest {
+
+    public static String SERVER_BASE_URL = 'https://resilient-koala-ulbvbp-dev-ed.my.salesforce.com';
+
     private static String SENSOR_ID = '110';
     private static String NONEXISTENT_ID = '404';
-    
-    private static String WRONG_SENSOR_AMOUNT = 'Actual amount of sensors does n\' equal to expected';
+
     private static String WRONG_SENSOR_EVENT_AMOUNT = 'Actual amount of sensor events does n\' equal to expected';
+    private static String WRONG_SENSOR_AMOUNT = 'Actual amount of sensors does n\' equal to expected';
 
     @TestSetup
     static void makeData() {
@@ -18,7 +20,7 @@ public with sharing class SensorSoapServiceTest {
     }
 
     @IsTest
-    public static void checkWithExistsSensor() {
+    public static void checkWithExistSensor() {
 
         Account account = [SELECT Name FROM Account];
 
@@ -28,12 +30,17 @@ public with sharing class SensorSoapServiceTest {
         }
         SensorData sensorData = new SensorData(account.Id, SENSOR_ID, line);
 
-        Test.startTest();
-        SensorSoapService.upsertData(JSON.serialize(sensorData));
-        Test.stopTest();
+        RestRequest request = new RestRequest();
+        request.requestUri = SERVER_BASE_URL + '/services/apexrest/sensorEvent';
+        request.httpMethod = 'PUT';
+        request.addHeader('Content-Type', 'application/json');
+        request.requestBody = Blob.valueOf(JSON.serialize(sensorData));
+        RestContext.request = request;
+
+        SensorRestService.upsertData();
 
         List<Sensor__c> sensors = [SELECT Name FROM Sensor__c];
-        System.assertEquals(1, sensors.size(), WRONG_SENSOR_AMOUNT);
+        System.assertEquals(1, sensors.size(), WRONG_SENSOR_EVENT_AMOUNT);
 
         List<Sensor_Event__c> events = [SELECT Name FROM Sensor_Event__c];
 
@@ -41,7 +48,7 @@ public with sharing class SensorSoapServiceTest {
     }
 
     @IsTest
-    public static void checkWithUnxistsSensor() {
+    public static void checkWithUnexistsSensor() {
 
         Account account = [SELECT Name FROM Account];
 
@@ -51,18 +58,23 @@ public with sharing class SensorSoapServiceTest {
         }
         SensorData sensorData = new SensorData(account.Id, NONEXISTENT_ID, line);
 
-        Test.startTest();
-        SensorSoapService.upsertData(JSON.serialize(sensorData));
-        Test.stopTest();
+        RestRequest request = new RestRequest();
+        request.requestUri = SERVER_BASE_URL + '/services/apexrest/sensorEvent';
+        request.httpMethod = 'PUT';
+        request.addHeader('Content-Type', 'application/json');
+        request.requestBody = Blob.valueOf(JSON.serialize(sensorData));
+        RestContext.request = request;
+
+        SensorRestService.upsertData();
 
         List<Sensor__c> sensors = [SELECT Name FROM Sensor__c];
-        System.assertEquals(2, sensors.size(), WRONG_SENSOR_AMOUNT);
+        System.assertEquals(2, sensors.size(), WRONG_SENSOR_EVENT_AMOUNT);
 
         List<Sensor_Event__c> events = [SELECT Name FROM Sensor_Event__c];
 
         System.assertEquals(line.size() / 3, events.size(), WRONG_SENSOR_EVENT_AMOUNT);
     }
-    
+
     @IsTest
     public static void checkWithUncorrectLine() {
 
@@ -74,9 +86,14 @@ public with sharing class SensorSoapServiceTest {
         }
         SensorData sensorData = new SensorData(account.Id, SENSOR_ID, line);
 
-        Test.startTest();
-        SensorSoapService.upsertData(JSON.serialize(sensorData));
-        Test.stopTest();
+        RestRequest request = new RestRequest();
+        request.requestUri = SERVER_BASE_URL + '/services/apexrest/sensorEvent';
+        request.httpMethod = 'PUT';
+        request.addHeader('Content-Type', 'application/json');
+        request.requestBody = Blob.valueOf(JSON.serialize(sensorData));
+        RestContext.request = request;
+
+        SensorRestService.upsertData();
 
         List<Sensor_Event__c> events = [SELECT Name FROM Sensor_Event__c];
 
