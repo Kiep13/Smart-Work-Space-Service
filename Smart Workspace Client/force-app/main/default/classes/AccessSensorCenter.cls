@@ -13,7 +13,20 @@ public with sharing class AccessSensorCenter {
 
     private static String TOKEN_URL = 'https://login.salesforce.com/services/oauth2/token';
 
+    private static Datetime lastAcsessTime = Datetime.newInstance(1977, 1, 1, 0, 0, 0);
+    private static String token = '';
+
     public static String getToken() {
+        Datetime expiredTime = lastAcsessTime.addMinutes(15);
+
+        if(expiredTime < Datetime.now()) {
+            token = refreshToken();
+        }
+
+        return token;
+    }
+
+    private static String refreshToken() {
         HttpRequest request = new HttpRequest();
         request.setMethod('POST');
         request.setHeader('Content-Type','application/x-www-form-urlencoded');
@@ -30,6 +43,9 @@ public with sharing class AccessSensorCenter {
         HTTPResponse response = http.send(request);
         
         OAuth2 authInfo = (OAuth2) JSON.deserialize(response.getBody(), OAuth2.class);
+
+        lastAcsessTime = Datetime.now();
+        
         return authInfo.access_token;
     }
 }
