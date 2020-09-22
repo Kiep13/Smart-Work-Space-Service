@@ -1,3 +1,6 @@
+/**
+ * Class which allow Rest requsts fo org
+ */
 @RestResource(urlMapping = '/sensorEvent')
 global with sharing class SensorRestService {
     

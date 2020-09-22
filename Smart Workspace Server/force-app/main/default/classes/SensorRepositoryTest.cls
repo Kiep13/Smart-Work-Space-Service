@@ -1,3 +1,8 @@
+/**
+ * Class for testing SensorRepository class
+ * Test findSensorByIdAndAccount method
+ * Test createSensor method
+ */
 @IsTest
 public with sharing class SensorRepositoryTest {
     
@@ -5,6 +10,7 @@ public with sharing class SensorRepositoryTest {
     private static String NONEXISTENT_ID = '404';
 
     private static String EXPECTED_EXCEPTION_MESSAGE = 'Couldn\'t find account with specified id';
+    private static String ILLEGAL_ARGUMENT_EXCEPTION  = 'System.IllegalArgumentException';
 
     private static String EXPECTED_GOT_NULL = 'Expected get null object';
     private static String WRONG_SENSOR_NAME = 'Actual sensor\'s name does n\'t equal to expected';
@@ -40,7 +46,7 @@ public with sharing class SensorRepositoryTest {
         try {
             repository.findSensorByIdAndAccount(sensor.Id, NONEXISTENT_ID);
         } catch (Exception e) {
-            System.assertEquals('System.IllegalArgumentException', e.getTypeName(),
+            System.assertEquals(ILLEGAL_ARGUMENT_EXCEPTION, e.getTypeName(),
                 'Expected exception with type NoAccessException, but got ' + e.getTypeName());
             System.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage(), WRONG_EXCEPTION_MESSAGE);
         }

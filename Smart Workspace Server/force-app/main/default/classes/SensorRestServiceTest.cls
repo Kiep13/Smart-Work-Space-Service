@@ -1,7 +1,10 @@
+/**
+ * Class for testing SensorRestService class
+ */
 @IsTest
 public with sharing class SensorRestServiceTest {
 
-    public static String SERVER_BASE_URL = 'https://resilient-koala-ulbvbp-dev-ed.my.salesforce.com';
+    private static String SERVER_BASE_URL = 'https://resilient-koala-ulbvbp-dev-ed.my.salesforce.com';
 
     private static String SENSOR_ID = '110';
     private static String NONEXISTENT_ID = '404';
@@ -28,6 +31,7 @@ public with sharing class SensorRestServiceTest {
         for(Integer i = 0; i < 12; i++) {
             line.add(i);
         }
+
         SensorData sensorData = new SensorData(account.Id, SENSOR_ID, line);
 
         RestRequest request = new RestRequest();
@@ -43,7 +47,6 @@ public with sharing class SensorRestServiceTest {
         System.assertEquals(1, sensors.size(), WRONG_SENSOR_EVENT_AMOUNT);
 
         List<Sensor_Event__c> events = [SELECT Name FROM Sensor_Event__c];
-
         System.assertEquals(line.size() / 3, events.size(), WRONG_SENSOR_EVENT_AMOUNT);
     }
 
@@ -56,6 +59,7 @@ public with sharing class SensorRestServiceTest {
         for(Integer i = 0; i < 12; i++) {
             line.add(i);
         }
+
         SensorData sensorData = new SensorData(account.Id, NONEXISTENT_ID, line);
 
         RestRequest request = new RestRequest();
@@ -71,7 +75,6 @@ public with sharing class SensorRestServiceTest {
         System.assertEquals(2, sensors.size(), WRONG_SENSOR_EVENT_AMOUNT);
 
         List<Sensor_Event__c> events = [SELECT Name FROM Sensor_Event__c];
-
         System.assertEquals(line.size() / 3, events.size(), WRONG_SENSOR_EVENT_AMOUNT);
     }
 
@@ -84,6 +87,7 @@ public with sharing class SensorRestServiceTest {
         for(Integer i = 0; i < 13; i++) {
             line.add(i);
         }
+
         SensorData sensorData = new SensorData(account.Id, SENSOR_ID, line);
 
         RestRequest request = new RestRequest();
@@ -96,7 +100,6 @@ public with sharing class SensorRestServiceTest {
         SensorRestService.upsertData();
 
         List<Sensor_Event__c> events = [SELECT Name FROM Sensor_Event__c];
-
         System.assertEquals(line.size() / 3, events.size(), WRONG_SENSOR_EVENT_AMOUNT);
     }
 }

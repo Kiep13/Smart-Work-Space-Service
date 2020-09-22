@@ -1,3 +1,6 @@
+/**
+ * Class for testing SensorSoapService class
+ */
 @IsTest
 public with sharing class SensorSoapServiceTest {
     
@@ -26,6 +29,7 @@ public with sharing class SensorSoapServiceTest {
         for(Integer i = 0; i < 12; i++) {
             line.add(i);
         }
+
         SensorData sensorData = new SensorData(account.Id, SENSOR_ID, line);
 
         Test.startTest();
@@ -36,7 +40,6 @@ public with sharing class SensorSoapServiceTest {
         System.assertEquals(1, sensors.size(), WRONG_SENSOR_AMOUNT);
 
         List<Sensor_Event__c> events = [SELECT Name FROM Sensor_Event__c];
-
         System.assertEquals(line.size() / 3, events.size(), WRONG_SENSOR_EVENT_AMOUNT);
     }
 
@@ -49,6 +52,7 @@ public with sharing class SensorSoapServiceTest {
         for(Integer i = 0; i < 12; i++) {
             line.add(i);
         }
+
         SensorData sensorData = new SensorData(account.Id, NONEXISTENT_ID, line);
 
         Test.startTest();
@@ -59,7 +63,6 @@ public with sharing class SensorSoapServiceTest {
         System.assertEquals(2, sensors.size(), WRONG_SENSOR_AMOUNT);
 
         List<Sensor_Event__c> events = [SELECT Name FROM Sensor_Event__c];
-
         System.assertEquals(line.size() / 3, events.size(), WRONG_SENSOR_EVENT_AMOUNT);
     }
     
@@ -72,6 +75,7 @@ public with sharing class SensorSoapServiceTest {
         for(Integer i = 0; i < 13; i++) {
             line.add(i);
         }
+
         SensorData sensorData = new SensorData(account.Id, SENSOR_ID, line);
 
         Test.startTest();
@@ -79,7 +83,6 @@ public with sharing class SensorSoapServiceTest {
         Test.stopTest();
 
         List<Sensor_Event__c> events = [SELECT Name FROM Sensor_Event__c];
-
         System.assertEquals(line.size() / 3, events.size(), WRONG_SENSOR_EVENT_AMOUNT);
     }
 }

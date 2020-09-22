@@ -1,4 +1,8 @@
+/**
+ * Class which transform and save data, which come with requests
+ */
 public with sharing class SensorService {
+    
     public void insertSensorEventsData(SensorData sensorData) {
         SensorRepository sensorRepo = new SensorRepository();
         Sensor__c sensor = sensorRepo.findSensorByIdAndAccount(sensorData.sensorId,  sensorData.accountId);

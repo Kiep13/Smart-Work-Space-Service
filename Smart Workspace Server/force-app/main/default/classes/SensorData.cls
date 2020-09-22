@@ -1,8 +1,10 @@
+/**
+ * Class for deserializing request bodies in SOAP and REST requests
+ */
 public with sharing class SensorData {
-
-    public String accountId;
-    public String sensorId;
-    public Integer[] line;
+    public String accountId {get;set;}
+    public String sensorId {get;set;}
+    public Integer[] line {get;set;}
 
     public SensorData(String accountId, String sensorId, Integer[] line) {
         this.accountId = accountId;

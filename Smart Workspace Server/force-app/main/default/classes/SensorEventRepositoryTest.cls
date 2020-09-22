@@ -1,3 +1,8 @@
+/**
+ * Class for testing SensorEventRepository class
+ * Test createSensorEvents method
+ * Test makeEventChain method
+ */
 @IsTest
 public with sharing class SensorEventRepositoryTest {
 
