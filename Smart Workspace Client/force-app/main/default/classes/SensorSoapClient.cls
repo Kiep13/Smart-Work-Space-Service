@@ -1,3 +1,6 @@
+/**
+ * Class for making SOAP requests to server
+ */
 public with sharing class SensorSoapClient {
 
     // SensorSoapClient.makeSoapRequest(AccessSensorCenter.getToken(), '200', '0012w00000MAglGAAT', new Integer[]{1,2,3,4,5,6});

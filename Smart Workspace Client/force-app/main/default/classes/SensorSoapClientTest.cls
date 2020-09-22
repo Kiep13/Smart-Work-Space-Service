@@ -1,3 +1,6 @@
+/**
+ * Class for testing SensorSoapClient class makeSoapRequest method
+ */
 @IsTest
 public with sharing class SensorSoapClientTest {
     private static String TEST_TOKEN = 'S9Zs8uEGGTVVtLggFTizCsMtwOJnRhjaQ2BMUQhcY';

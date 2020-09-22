@@ -1,3 +1,6 @@
+/**
+ * Mock class for testing AccessSensorCenter class
+ */
 @IsTest
 global with sharing class AccessSensorCenterMock implements HttpCalloutMock{
     private static String ID = 'https://login.salesforce.com/id/00D2w00000CoSKVEA3/0052w000006rVnAAAU';

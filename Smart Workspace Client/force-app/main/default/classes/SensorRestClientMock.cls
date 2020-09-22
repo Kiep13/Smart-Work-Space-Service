@@ -1,3 +1,6 @@
+/**
+ * Mock class for testing SensorRestClient class
+ */
 @IsTest
 global with sharing class SensorRestClientMock implements HttpCalloutMock {
     global HTTPResponse respond(HTTPRequest request) {

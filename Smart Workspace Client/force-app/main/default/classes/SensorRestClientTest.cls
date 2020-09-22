@@ -1,3 +1,6 @@
+/**
+ * Class for testing SensorRestClient class makeRestRequest method
+ */
 @IsTest
 public with sharing class SensorRestClientTest {
 

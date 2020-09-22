@@ -1,3 +1,7 @@
+/**
+ * Class for getting token
+ * Makes a request to the Salesforce login service
+ */
 public with sharing class AccessSensorCenter {
     
     public static String SERVER_BASE_URL = 'https://resilient-koala-ulbvbp-dev-ed.my.salesforce.com';

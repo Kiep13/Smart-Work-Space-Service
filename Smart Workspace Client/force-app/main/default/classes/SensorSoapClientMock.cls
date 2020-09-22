@@ -1,3 +1,6 @@
+/**
+ * Mock class for testing SensorSoapClient class
+ */
 @IsTest
 global with sharing class SensorSoapClientMock implements WebServiceMock {
     global void doInvoke(
