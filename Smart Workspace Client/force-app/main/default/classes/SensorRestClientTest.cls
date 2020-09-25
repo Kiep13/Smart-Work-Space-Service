@@ -21,14 +21,14 @@ public with sharing class SensorRestClientTest {
     @IsTest
     public static void testCustomRestRequest() {
         Test.setMock(HttpCalloutMock.class, new SensorRestClientMock()); 
-        HttpResponse response = SensorRestClient.makeCustomRestRequest(TEST_TOKEN, SENSOR_NAME, ACCOUNT_ID, LINE);
+        HttpResponse response = SensorRestClient.makeCustomRestRequest(SENSOR_NAME, ACCOUNT_ID, LINE);
         System.assertEquals(200, response.getStatusCode());
     }
 
     @IsTest
     public static void testStandardRestRequest() {
         Test.setMock(HttpCalloutMock.class, new SensorRestClientMock()); 
-        HttpResponse response = SensorRestClient.makeStandardRestRequest(TEST_TOKEN, new SensorEvent(SENSOR_ID, X, Y, Z));
+        HttpResponse response = SensorRestClient.makeStandardRestRequest(new SensorEvent(SENSOR_ID, X, Y, Z));
         System.assertEquals(200, response.getStatusCode());
     }
 }
